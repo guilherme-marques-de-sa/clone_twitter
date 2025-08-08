@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="favicon" href="/static/img/twitter.png" rel="shortcut icon">
+    <link rel="stylesheet" href="../static/style.css">
+    <meta author="Guilherme Marques de Sá">
+    <style>
+        .saved-tweet {
+            border-bottom: 1px solid #03A9F4;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .saved-tweet-content {
+            margin-left: 60px;
+        }
+    </style>
+    <title>Itens Salvos | Clone do Twitter</title>
+</head>
+<body>
+    
+    <nav>
+        <div id="logo">
+            <img src="/static/img/twitter.png" width="50px" alt="Twitter Logo">
+        </div>
+        <ul class="nav_links">
+            <li><a href="/feed"> <img src="/static/img/home.png" width="30px" alt="Página Inicial"> Página Inicial</a></li>
+            <li><a href="/explore"> <img src="/static/img/search.png" width="30px" alt="Explorar"> Explorar</a></li>
+            <li><a href="/notifications"> <img src="/static/img/bell.png" width="30px" alt="Notificações"> Notificações</a></li>
+            <li><a href="/saved_items" style="font-weight: bold;"> <img src="/static/img/save-instagram.png" width="30px" alt="Itens Salvos"> Itens salvos</a></li>
+            <li><a href="/profile"> <img src="/static/img/user.png" width="30px" alt="Perfil"> Perfil</a></li>
+            <li><a href="/logout"> <img src="/static/img/logout.png" width="30px" alt="Sair"> Sair</a></li>
+        </ul>
+        <button id="btn0">Postar</button>
+    </nav>
+
+    <section>
+        <h1>Itens Salvos</h1>
+
+        {% if saved_items %}
+            {% for item in saved_items %}
+            <div class="saved-tweet">
+                <div class="tweet-avatar">
+                    <img src="/static/img/user.png" width="48px" alt="Avatar">
+                </div>
+                <div class="saved-tweet-content">
+                    <div class="tweet-header">
+                        <span class="tweet-name">{{ item.tweet.user.username }}</span>
+                        <span class="tweet-username">@{{ item.tweet.user.username }}</span>
+                        <span class="tweet-time">· {{ item.tweet.created_at.strftime('%d/%m/%Y %H:%M') }}</span>
+                    </div>
+                    <div class="tweet-text">
+                        {{ item.tweet.content }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h2 id="no_saved_items">Não há Itens Salvos....</h2>
+        {% endif %}
+    </section>
+
+    <aside>
+        <div class="profile-summary">
+            <img src="/static/img/user.png" width="60px" alt="Perfil">
+            <h3>{{ session['username'] }}</h3>
+            <p>@{{ session['username'] }}</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2023 Clone do Twitter. Todos os direitos reservados.</p>
+            <p>Feito por Guilherme Marques de Sá</p>
+        </div>
+    </aside>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

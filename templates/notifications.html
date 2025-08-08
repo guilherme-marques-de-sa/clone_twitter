@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="favicon" href="/static/img/twitter.png" rel="shortcut icon">
+    <link rel="stylesheet" href="../static/style.css">
+    <meta author="Guilherme Marques de Sá">
+    <style>
+        .notification {
+            border-bottom: 1px solid #03A9F4;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .notification.unread {
+            background-color: rgba(3, 169, 244, 0.1);
+        }
+    </style>
+    <title>Notificações | Clone do Twitter</title>
+</head>
+<body>
+    
+    <nav>
+        <div id="logo">
+            <img src="/static/img/twitter.png" width="50px" alt="Twitter Logo">
+        </div>
+        <ul class="nav_links">
+            <li><a href="/feed"> <img src="/static/img/home.png" width="30px" alt="Página Inicial"> Página Inicial</a></li>
+            <li><a href="/explore"> <img src="/static/img/search.png" width="30px" alt="Explorar"> Explorar</a></li>
+            <li><a href="/notifications" style="font-weight: bold;"> <img src="/static/img/bell.png" width="30px" alt="Notificações"> Notificações</a></li>
+            <li><a href="/saved_items"> <img src="/static/img/save-instagram.png" width="30px" alt="Itens Salvos"> Itens salvos</a></li>
+            <li><a href="/profile"> <img src="/static/img/user.png" width="30px" alt="Perfil"> Perfil</a></li>
+            <li><a href="/logout"> <img src="/static/img/logout.png" width="30px" alt="Sair"> Sair</a></li>
+        </ul>
+        <button id="btn0">Postar</button>
+    </nav>
+
+    <section>
+        <h1>Notificações</h1>
+
+        {% if notifications %}
+            {% for notification in notifications %}
+            <div class="notification {% if not notification.is_read %}unread{% endif %}">
+                <p>{{ notification.message }}</p>
+                <small>{{ notification.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h2 id="no_notifications">Não há notificações....</h2>
+        {% endif %}
+    </section>
+
+    <aside>
+        <div class="profile-summary">
+            <img src="/static/img/user.png" width="60px" alt="Perfil">
+            <h3>{{ session['username'] }}</h3>
+            <p>@{{ session['username'] }}</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2023 Clone do Twitter. Todos os direitos reservados.</p>
+            <p>Feito por Guilherme Marques de Sá</p>
+        </div>
+    </aside>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

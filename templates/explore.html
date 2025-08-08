@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="favicon" href="/static/img/twitter.png" rel="shortcut icon">
+    <link rel="stylesheet" href="../static/style.css">
+    <meta author="Guilherme Marques de Sá">
+    <style>
+        #search1 {
+            width: 90%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 50px;
+            margin-bottom: 20px;
+
+        }
+
+        section h2{
+            text-align: center;
+            font-weight: normal;
+            color: rgb(128, 128, 128, 0.7);
+        }
+    </style>
+    <title>Explorar | Clone do Twitter</title>
+</head>
+<body>
+    
+    <nav>
+        <div id="logo">
+            <img src="/static/img/twitter.png" width="50px" alt="Twitter Logo">
+        </div>
+        <ul class="nav_links">
+            <li><a href="/feed"> <img src="/static/img/home.png" width="30px" alt="Página Inicial"> Página Inicial</a></li>
+            <li><a href="/explore" style="font-weight: bold;"> <img src="/static/img/search.png" width="30px" alt="Explorar"> Explorar</a></li>
+            <li><a href="/notifications"> <img src="/static/img/bell.png" width="30px" alt="Notificações"> Notificações</a></li>
+            <li><a href="/saved_items"> <img src="/static/img/save-instagram.png" width="30px" alt="Itens Salvos"> Itens salvos</a></li>
+            <li><a href="/profile"> <img src="/static/img/user.png" width="30px" alt="Perfil"> Perfil</a></li>
+        <li><a href="/logout"> <img src="/static/img/logout.png" width="30px" alt="Mais"> Mais</a></li>
+        </ul>
+        <button id="btn0">Postar</button>
+    </nav>
+
+    <section>
+        <h1>Explorar</h1>
+
+        <form method="GET" action="{{ url_for('search') }}">
+            <input type="text" name="q" id="search1" placeholder="Buscar">
+            <button type="submit" style="display: none;">Buscar</button>
+        </form>
+
+        <h2 id="search_history">Seu Histórico de Pesquisa esta Vazio....</h2>
+    </section>
+
+    <aside>
+
+        <div class="profile-summary">
+            <img src="/static/img/user.png" width="60px" alt="Perfil">
+            <h3>{{ session['username'] }}</h3>
+            <p>@{{ session['username'] }}</p>
+        </div>
+
+        <div class="who_to_follow">
+            <h2>Quem seguir</h2>
+            <ul>
+                {% for user in users %}
+                    {% if user.id != session['user_id'] %}
+                    <li>
+                        <img src="/static/img/user.png" width="30px" alt="Usuário">
+                        <span>{{ user.username }}</span>
+                        <a href="/follow/{{ user.id }}" class="follow-btn">Seguir</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2023 Clone do Twitter. Todos os direitos reservados.</p>
+            <p>Feito por Guilherme Marques de Sá</p>
+        </div>
+
+    </aside>
+
+    <script src="/static/script.js"></script>
+
+</body>
+</html>
+
